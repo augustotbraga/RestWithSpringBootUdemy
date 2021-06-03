@@ -17,6 +17,7 @@ target/
 **/.project
 **/.classpath
 **/.settings/
+**/.metadata/
 blog/bin/
 **/.tern-project
 
