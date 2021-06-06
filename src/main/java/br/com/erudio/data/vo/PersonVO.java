@@ -1,36 +1,21 @@
-package br.com.erudio.model;
+package br.com.erudio.data.vo;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "person")
-public class Person implements Serializable{
+public class PersonVO implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "first_name", nullable = false, length = 80)
 	private String firstName;
-	@Column(name = "last_name", nullable = false, length = 80)
-	private String lastname;
-	@Column(nullable = false, length = 100)
-	private String addres;
-	@Column(nullable = false, length = 6)
+	private String lastName;
+	private String address;
 	private String gender;
 	
-	public Person() {
+	public PersonVO() {
 		
 	}
 
@@ -50,20 +35,20 @@ public class Person implements Serializable{
 		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getAddres() {
-		return addres;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddres(String addres) {
-		this.addres = addres;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getGender() {
@@ -78,11 +63,11 @@ public class Person implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((addres == null) ? 0 : addres.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
 	}
 
@@ -94,11 +79,11 @@ public class Person implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Person other = (Person) obj;
-		if (addres == null) {
-			if (other.addres != null)
+		PersonVO other = (PersonVO) obj;
+		if (address == null) {
+			if (other.address != null)
 				return false;
-		} else if (!addres.equals(other.addres))
+		} else if (!address.equals(other.address))
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -115,12 +100,12 @@ public class Person implements Serializable{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (lastname == null) {
-			if (other.lastname != null)
+		if (lastName == null) {
+			if (other.lastName != null)
 				return false;
-		} else if (!lastname.equals(other.lastname))
+		} else if (!lastName.equals(other.lastName))
 			return false;
 		return true;
 	}
-	
+
 }
