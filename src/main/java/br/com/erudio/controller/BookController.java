@@ -21,6 +21,7 @@ import br.com.erudio.services.BookServices;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+//@CrossOrigin (origins = "http://localhost:8080")
 @Api(tags = "BookEndpoint")
 @RestController
 @RequestMapping("/api/book/v1")
