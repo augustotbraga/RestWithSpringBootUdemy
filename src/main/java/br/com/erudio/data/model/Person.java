@@ -25,6 +25,8 @@ public class Person implements Serializable{
 	private String firstName;
 	@Column(name = "last_name", nullable = false, length = 80)
 	private String lastName;
+	@Column(nullable = false)
+	private Boolean enabled;
 	@Column(nullable = false, length = 100)
 	private String address;
 	@Column(nullable = false, length = 6)
@@ -57,6 +59,14 @@ public class Person implements Serializable{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public String getAddress() {
 		return address;
@@ -79,6 +89,7 @@ public class Person implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((enabled == null) ? 0 : enabled.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -99,6 +110,11 @@ public class Person implements Serializable{
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
+			return false;
+		if (enabled == null) {
+			if (other.enabled != null)
+				return false;
+		} else if (!enabled.equals(other.enabled))
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -122,5 +138,5 @@ public class Person implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }

@@ -3,7 +3,9 @@ package br.com.erudio.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.erudio.converter.DozerConverter;
 import br.com.erudio.data.model.Person;
@@ -22,9 +24,9 @@ public class PersonServices {
 		return DozerConverter.parseObject(person, PersonVO.class);
 	}
 	
-	public List<PersonVO> findAll() {
-		List<Person> listPerson = repository.findAll(); 
-		return DozerConverter.parseListObjects(listPerson, PersonVO.class);
+	public List<PersonVO> findAll(Pageable pageable) {
+		var entities = repository.findAll(pageable).getContent(); 
+		return DozerConverter.parseListObjects(entities, PersonVO.class);
 	}
 
 	public PersonVO create(PersonVO personVO) {
@@ -37,6 +39,7 @@ public class PersonServices {
 				() -> new ResourceNotFoundException("No records found for this id"));
 		entity.setFirstName(personVO.getFirstName());
 		entity.setLastName(personVO.getLastName());
+		entity.setEnabled(personVO.getEnabled());
 		entity.setAddress(personVO.getAddress());
 		entity.setGender(personVO.getGender());
 		 
@@ -48,6 +51,15 @@ public class PersonServices {
 		Person entity = repository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException("No records found for this id"));
 		repository.delete(entity);
+	}
+	
+	@Transactional
+	public PersonVO disablePerson(Long id) {
+		Person entity = repository.findById(id).orElseThrow(
+				() -> new ResourceNotFoundException("No records found for this id"));
+		entity.setEnabled(false);
+		repository.disablePerson(entity.getId());
+		return DozerConverter.parseObject(entity, PersonVO.class);
 	}
 	
 }
