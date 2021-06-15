@@ -1,8 +1,8 @@
 package br.com.erudio.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.erudio.converter.DozerConverter;
@@ -22,9 +22,13 @@ public class BookServices {
 		return DozerConverter.parseObject(book, BookVO.class);
 	}
 	
-	public List<BookVO> findAll() {
-		List<Book> listBook = repository.findAll(); 
-		return DozerConverter.parseListObjects(listBook, BookVO.class);
+	public Page<BookVO> findAll(Pageable pageable) {
+		var page = repository.findAll(pageable); 
+		return page.map(this::convertToBookVO);
+	}
+	
+	public BookVO convertToBookVO(Book entity) {
+		return DozerConverter.parseObject(entity, BookVO.class);
 	}
 
 	public BookVO create(BookVO bookVO) {
